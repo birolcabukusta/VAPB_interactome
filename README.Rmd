@@ -217,7 +217,7 @@ group <- factor(
 
 design <- model.matrix(~ 0 + group)
 colnames(design) <- levels(group)
-design
+#design
 
 
 #Run the differential-expression analysis
@@ -301,7 +301,7 @@ group <- factor(
 
 design <- model.matrix(~ 0 + group)
 colnames(design) <- levels(group)
-design
+#design
 
 #Run the differential-expression analysis
 fit <- lmFit(expression_matrix, design)
@@ -367,6 +367,8 @@ results_merged2 %>%
 
 
 #### TM v TurboID-only
+
+List of TM enriched proteins are below.
 ```{R TM_v_C1}
 sample_columns <- c(
   "TM1", "TM2", "TM3",
@@ -457,7 +459,7 @@ results_merged3 %>%
    theme(aspect.ratio = 0.5,legend.position = 'none') +
    xlab("Fold Change (log2[TM/C1 mutant])") +
    ylab("P-value (-log10)") +
-   xlim(-10,10) 
+   ggtitle('TM v C1',"Focusing on the highlighted section")  
 
 
 
@@ -472,7 +474,12 @@ results_merged3 %>%
    ylim(Ymin, Ymax) +
    geom_text_repel(size = 4, aes(label = Gene.Symbol), #max.overlaps = Inf,
       max.iter = 100000,max.time = 300) +
-   ggtitle('KD v TM mutant',"Focusing on the highlighted section")  
+   ggtitle('TM v C1',"Focusing on the highlighted section")  
+
+
+results_merged3 %>% 
+   filter(logFC > 2 & log10(adj.P.Val) < -3) %>% 
+   select(Gene.Symbol, logFC, adj.P.Val, ffatscore2)
 
 ```
 
