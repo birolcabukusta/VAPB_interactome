@@ -32,7 +32,7 @@ library(gridExtra)
 
 
 ```{r load data}
-bioid1 = read.csv("/Users/birolcabukusta/Desktop/AnalysisLTPlibrary/VAPB_interactome/VAPB_interactome/VAPB_interactome/data/Book1_for_R_with_FFAT_scores.csv")
+bioid1 = read.csv("data/Book1_for_R_with_FFAT_scores.csv")
 
 ```
 
@@ -70,7 +70,7 @@ grid.arrange(plot1, plot2, widths = c(3, 3), nrow = 1)
 ```
 
 Some of the genes don't have any Gene Symbols, I don't want to miss them out just in case.
-```{R}
+```{R WithoutName}
 #test the bunch with no GeneSymbol
 bioid1 %>% 
    filter(is.na(Gene.Symbol)) %>% 
@@ -89,7 +89,7 @@ bioid1 %>%
 
 ### Print all the hits above the thresholds
 
-```{R WithoutName, warning=FALSE}
+```{R ListHits, warning=FALSE}
 bioid1 %>% 
    filter(Rest_FC > Xmin & Rest_logP>Ymin) %>% 
    select(Gene.Symbol, Accession,  Rest_FC, Rest_logP, ffatscore) %>% 
